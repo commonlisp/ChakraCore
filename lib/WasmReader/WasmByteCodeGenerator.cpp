@@ -1221,8 +1221,15 @@ WasmBytecodeGenerator::EmitBr()
         m_i32RegSlots.ReleaseLocation(&conditionInfo);
     }
 
-    ReleaseLocation(&info);
-    return EmitInfo(WasmTypes::Unreachable);
+    if (wasmOp == WasmOp::wbBrIf)
+    {
+        return EmitInfo(info);
+    }
+    else
+    {
+        ReleaseLocation(&info);
+        return EmitInfo(WasmTypes::Unreachable);
+    }
 }
 
 /* static */
