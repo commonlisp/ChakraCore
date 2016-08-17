@@ -5,7 +5,6 @@
 
 #include "WasmReaderPch.h"
 
-
 #ifdef ENABLE_WASM
 
 namespace Wasm
@@ -150,27 +149,42 @@ WasmBinaryReader::ReadSectionHeader()
 {
     UINT len = 0;
     UINT32 sectionSize;
-    UINT32 idSize;
+    INT32 idSize;
 
     SectionHeader header;
     header.start = m_pc;
 
-    idSize = LEB128(len);
-    const char *sectionName = (char*)(m_pc);
-    m_pc += idSize;
+    idSize = SLEB128(len);
+
+    const char *sectionName = nullptr;
+
+    if (idSize < 0)
+    {
+        int normId = abs(idSize) - 1;
+        Assert(normId < bSectLimit); //there are 12 (bSectLimit) known sections
+        sectionName = SectionInfo::All[normId].id;
+        header.code = (SectionCode) normId;
+		Assert(strlen(sectionName) < INT_MAX);
+		idSize = static_cast<INT32> (strlen(sectionName)); //sectionName (SectionInfo.id) is null-terminated
+    }
+    else
+    {
+        sectionName = (char*)(m_pc);
+        m_pc += idSize;
+
+        for (int i = 0; i < bSectLimit; i++)
+        {
+            if (!memcmp(SectionInfo::All[i].id, sectionName, idSize))
+            {
+                header.code = (SectionCode)i;
+                break;
+            }
+        }
+    }
 
     sectionSize = LEB128(len);
     header.end = m_pc + sectionSize;
     CheckBytesLeft(sectionSize);
-
-    for (int i = 0; i < bSectLimit ; i++)
-    {
-        if (!memcmp(SectionInfo::All[i].id, sectionName, idSize))
-        {
-            header.code = (SectionCode)i;
-            break;
-        }
-    }
 
 #if ENABLE_DEBUG_CONFIG_OPTIONS
     Assert(idSize < 64);
