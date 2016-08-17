@@ -740,6 +740,32 @@ WasmBinaryReader::ReadNamesSection()
     }
 }
 
+void
+WasmBinaryReader::ReadGlobalsSection()
+{
+    UINT len = 0;
+    UINT numEntries = LEB128(len);
+    m_pc += len;
+
+    for (UINT i = 0; i < numEntries; ++i)
+    {
+        UINT ty = ReadConst<UINT8>();
+        UINT mutability = LEB128(len);
+        (ty);
+            (mutability);
+        m_pc += len;
+        // TODO: Need to separate out init_expr ReadExpr() and in function ReadExpr() which 
+        // which m_funcState.count. 
+        WasmOp op = ReadExpr();
+        (op);
+        if (*m_pc != wbEnd) 
+        {
+            ThrowDecodingError(_u("missing end in global init_expr"));
+        }
+    }
+
+}
+
 char16* WasmBinaryReader::ReadInlineName(uint32& length, uint32& nameLength)
 {
     nameLength = LEB128(length);
