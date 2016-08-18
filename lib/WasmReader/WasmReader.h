@@ -61,6 +61,7 @@ namespace Wasm
 #include "WasmSignature.h"
 #include "WasmDataSegment.h"
 #include "WasmFunctionInfo.h"
+#include "WasmGlobal.h"
 #include "WasmModule.h"
 
 #include "WasmSection.h"

@@ -86,6 +86,7 @@ namespace Wasm
         WasmExport* m_exports;
         WasmImport* m_imports;
         WasmDataSegment** m_datasegs;
+        WasmGlobal** m_globals;
         WasmBinaryReader* m_reader;
 
         uint m_signaturesCount;
@@ -94,6 +95,7 @@ namespace Wasm
         uint m_exportCount;
         uint32 m_importCount;
         uint32 m_datasegCount;
+        uint32 m_globalCount;
 
         uint32 m_startFuncIndex;
 
