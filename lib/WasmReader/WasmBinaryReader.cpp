@@ -128,6 +128,9 @@ WasmBinaryReader::ProcessCurrentSection()
     case bSectStartFunction:
         ReadStartFunction();
         break;
+    case bSectElement:
+        ReadElements();
+        break;
     case bSectDataSegments:
         ReadDataSegments();
         break;
@@ -708,6 +711,37 @@ WasmBinaryReader::ReadNamesSection()
             UINT localNameLen = 0;
             ReadInlineName(len, localNameLen);
         }
+    }
+}
+
+void
+WasmBinaryReader::ReadElementSegments()
+{
+    UINT len = 0;
+    UINT numEntries = LEB128(len);
+
+    for (UINT i = 0; i < numEntries; ++i)
+    {
+        UINT index = LEB128(len);
+        if (index != 0)
+        {
+            ThrowDecodingError(_u("invalid element index"));
+        }
+
+        WasmNode* init_expr = ReadExpr();
+        UINT num_elem = LEB128(len);
+        UINT elemLen = 0;
+        uint32* elems = AnewArray(m_alloc, uint32, num_elem);
+        for (UINT j = 0; j < num_elem; ++j)
+        {
+            elems[j] = LEB128(len);
+            elemLen += len;
+        }
+        
+        WasmElementSegment *eseg = Anew(m_alloc, WasmElementSegment, m_alloc, index, init_expr, num_elem, elems);
+        CheckBytesLeft(elemLen);
+        m_pc += elemLen;
+        m_module->AddElemSeg(eseg, i); 
     }
 }
 

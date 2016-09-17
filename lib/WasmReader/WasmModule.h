@@ -62,6 +62,11 @@ namespace Wasm
         void SetStartFunction(uint32 i);
         uint32 GetStartFunction() const;
 
+        void AllocateElemSegs(uint32 count);
+        bool AddElemSeg(WasmElementSegment* seg, uint32 index);
+        WasmElementSegment GetElementSeg(uint32 index) const;
+        uint32 GetElementSegCount() const { return m_elemsegCount; }
+
         uint32 GetModuleEnvironmentSize() const;
 
         uint GetHeapOffset() const { return heapOffset; }
@@ -86,6 +91,7 @@ namespace Wasm
         WasmExport* m_exports;
         WasmImport* m_imports;
         WasmDataSegment** m_datasegs;
+        WasmElementSegment** m_elemsegs;
         WasmBinaryReader* m_reader;
 
         uint m_signaturesCount;
@@ -94,6 +100,7 @@ namespace Wasm
         uint m_exportCount;
         uint32 m_importCount;
         uint32 m_datasegCount;
+        uint32 m_elemsegCount;
 
         uint32 m_startFuncIndex;
 

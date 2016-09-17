@@ -246,6 +246,36 @@ WasmModule::GetStartFunction() const
     return m_startFuncIndex;
 }
 
+void
+WasmModule::AllocateElemSegs(uint32 count)
+{
+    Assert(count != 0);
+    m_elemsegCount = count;
+    m_elemsegs = AnewArray(&m_alloc, WasmElementSegment*, count);
+}
+
+bool
+WasmModule::AddElemSeg(WasmElementSegment* seg, uint32 index)
+{
+    if (index >= m_elemsegCount)
+    {
+        return false;
+    }
+    m_elemsegs[index] = seg;
+    return true;
+}
+
+WasmElementSegment*
+WasmModule::GetElemSeg(uint32 index) const
+{
+    if (index >= m_elemsegCount)
+    {
+        return nullptr;
+    }
+    return m_elemsegs[index];
+}
+
+
 void WasmModule::SetSignatureCount(uint32 count)
 {
     Assert(m_signaturesCount == 0 && m_signatures == nullptr);
