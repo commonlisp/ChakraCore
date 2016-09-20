@@ -756,8 +756,7 @@ WasmBinaryReader::ReadGlobalsSection()
         WasmGlobal* g = Anew(m_alloc, WasmGlobal, m_alloc, ty, mutability == 1);
         // TODO: Need to separate out init_expr ReadExpr() and in function ReadExpr() which 
         // which m_funcState.count. 
-        WasmOp op = ReadExpr();
-        (op);
+        ReadExpr();
         if (*m_pc != wbEnd) 
         {
             ThrowDecodingError(_u("missing end in global init_expr"));
