@@ -758,8 +758,6 @@ WasmBinaryReader::ReadGlobalsSection()
         m_pc += 2;
 
         WasmGlobal* g = Anew(m_alloc, WasmGlobal, m_alloc, ty, mutability == 1);
-        // TODO: Need to separate out init_expr ReadExpr() and in function ReadExpr() which 
-        // mutates m_funcState.count. 
         m_funcState.size = m_end;
         while (ReadExpr() != wbFuncEnd);
         m_module->AddGlobal(g, i);
