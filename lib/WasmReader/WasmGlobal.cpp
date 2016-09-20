@@ -10,10 +10,10 @@
 namespace Wasm
 {
 
-WasmGlobal::WasmGlobal(ArenaAllocator * alloc, uint32 _type, bool _mutability, WasmNode* _init) : 
+WasmGlobal::WasmGlobal(ArenaAllocator * alloc, uint32 _type, bool _mutability) : 
     type(_type), 
     mutability(_mutability), 
-    init(_init)
+    init(nullptr)
 {
 }
 

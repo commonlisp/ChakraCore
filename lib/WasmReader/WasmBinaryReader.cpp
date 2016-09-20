@@ -750,10 +750,10 @@ WasmBinaryReader::ReadGlobalsSection()
     for (UINT i = 0; i < numEntries; ++i)
     {
         UINT ty = ReadConst<UINT8>();
-        UINT mutability = LEB128(len);
-        (ty);
-            (mutability);
-        m_pc += len;
+        UINT mutability = ReadConst<UINT8>();
+        m_pc += 2;
+
+        WasmGlobal* g = Anew(m_alloc, WasmGlobal, m_alloc, ty, mutability == 1);
         // TODO: Need to separate out init_expr ReadExpr() and in function ReadExpr() which 
         // which m_funcState.count. 
         WasmOp op = ReadExpr();
@@ -762,6 +762,7 @@ WasmBinaryReader::ReadGlobalsSection()
         {
             ThrowDecodingError(_u("missing end in global init_expr"));
         }
+        m_module->AddGlobal(g, i);
     }
 
 }

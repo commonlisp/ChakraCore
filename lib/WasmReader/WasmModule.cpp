@@ -230,6 +230,27 @@ WasmModule::GetDataSeg(uint32 index) const
     return m_datasegs[index];
 }
 
+bool
+WasmModule::AddGlobal(WasmGlobal* g, uint32 index)
+{
+    if (index >= m_globalCount)
+    {
+        return false;
+    }
+    m_globals[index] = g;
+    return true;
+}
+
+WasmGlobal*
+WasmModule::GetGlobal(uint32 index) const
+{
+    if (index >= m_globalCount)
+    {
+        return nullptr;
+    }
+    return m_globals[index];
+}
+
 void
 WasmModule::SetStartFunction(uint32 i)
 {

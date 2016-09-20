@@ -59,6 +59,10 @@ namespace Wasm
         WasmDataSegment* GetDataSeg(uint32 index) const;
         uint32 GetDataSegCount() const { return m_datasegCount; }
 
+        bool AddGlobal(WasmGlobal* g, uint32 index);
+        WasmGlobal* GetGlobal(uint32 index) const;
+        uint32 GetGlobalCount() const { return m_globalCount; }
+
         void SetStartFunction(uint32 i);
         uint32 GetStartFunction() const;
 

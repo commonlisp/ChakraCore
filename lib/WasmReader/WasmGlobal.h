@@ -11,7 +11,7 @@ namespace Wasm
     class WasmGlobal
     {
     public:
-        WasmGlobal(ArenaAllocator * alloc, uint32 _type, bool mutability, WasmNode* _init);
+        WasmGlobal(ArenaAllocator * alloc, uint32 _type, bool mutability);
         uint32 getType() const;
         bool getMutability() const;
         WasmNode* getInit() const;
