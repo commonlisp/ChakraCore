@@ -44,8 +44,10 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)WasmBinaryReader.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)WasmSection.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)WasmSignature.cpp" />
+    <ClCompile Include="WasmElementSegment.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="WasmElementSegment.h" />
     <ClInclude Include="WasmModule.h" />
     <ClInclude Include="WasmBytecodeGenerator.h" />
     <ClInclude Include="WasmDataSegment.h" />
