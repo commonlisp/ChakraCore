@@ -11,7 +11,7 @@ WASM_SECTION(IndirectFunctionTable, "table"              , fSectNone  , Function
 WASM_SECTION(Memory               , "memory"             , fSectNone  , Invalid           )
 WASM_SECTION(ExportTable          , "export"             , fSectNone  , FunctionSignatures)
 WASM_SECTION(StartFunction        , "start"              , fSectNone  , FunctionSignatures)
-WASM_SECTION(Element,             , "element"            , fSectNone  , Invalid           )
+WASM_SECTION(ElementSegments      , "element"            , fSectNone  , Invalid           )
 WASM_SECTION(FunctionBodies       , "code"               , fSectNone  , FunctionSignatures)
 WASM_SECTION(DataSegments         , "data"               , fSectNone  , Memory            )
 WASM_SECTION(Names                , "name"               , fSectNone,   Signatures        )

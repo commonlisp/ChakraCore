@@ -17,7 +17,7 @@ namespace Wasm
     uint32
     WasmElementSegment::getIndex() const
     {
-
+        return index;
     }
 
     WasmNode*

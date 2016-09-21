@@ -64,7 +64,7 @@ namespace Wasm
 
         void AllocateElemSegs(uint32 count);
         bool AddElemSeg(WasmElementSegment* seg, uint32 index);
-        WasmElementSegment GetElementSeg(uint32 index) const;
+        WasmElementSegment* GetElementSeg(uint32 index) const;
         uint32 GetElementSegCount() const { return m_elemsegCount; }
 
         uint32 GetModuleEnvironmentSize() const;

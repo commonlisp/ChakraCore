@@ -266,7 +266,7 @@ WasmModule::AddElemSeg(WasmElementSegment* seg, uint32 index)
 }
 
 WasmElementSegment*
-WasmModule::GetElemSeg(uint32 index) const
+WasmModule::GetElementSeg(uint32 index) const
 {
     if (index >= m_elemsegCount)
     {
