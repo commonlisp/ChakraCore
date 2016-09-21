@@ -738,11 +738,11 @@ WasmBinaryReader::ReadElementSegments()
             elems[j] = LEB128(len);
             elemLen += len;
         }
-        
+
         WasmElementSegment *eseg = Anew(m_alloc, WasmElementSegment, m_alloc, index, nullptr, num_elem, elems);
         CheckBytesLeft(elemLen);
         m_pc += elemLen;
-        m_module->AddElemSeg(eseg, i); 
+        m_module->AddElemSeg(eseg, i);
     }
 }
 
