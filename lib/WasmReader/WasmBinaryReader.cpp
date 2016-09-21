@@ -759,6 +759,7 @@ WasmBinaryReader::ReadGlobalsSection()
 
         WasmGlobal* g = Anew(m_alloc, WasmGlobal, m_alloc, ty, mutability == 1);
         m_funcState.size = m_end;
+        // TODO: Compile init_expr
         while (ReadExpr() != wbFuncEnd);
         m_module->AddGlobal(g, i);
     }
