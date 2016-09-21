@@ -427,7 +427,7 @@ WasmBinaryReader::ValidateModuleHeader()
     {
         ThrowDecodingError(_u("Invalid WASM version!"));
     }
-}G
+}
 
 void
 WasmBinaryReader::CallNode()
@@ -758,7 +758,7 @@ WasmBinaryReader::ReadGlobalsSection()
         m_pc += 2;
 
         WasmGlobal* g = Anew(m_alloc, WasmGlobal, m_alloc, ty, mutability == 1);
-        m_funcState.size = m_end;
+        m_funcState.size = (UINT)(m_end - m_pc);
         // TODO: Compile init_expr
         while (ReadExpr() != wbFuncEnd);
         m_module->AddGlobal(g, i);
