@@ -725,7 +725,7 @@ WasmBinaryReader::ReadElementSegments()
         UINT index = LEB128(len);
         if (index != 0)
         {
-            ThrowDecodingError(_u("invalid element index"));
+            ThrowDecodingError(_u("invalid table index"));
         }
 
         m_funcState.size = (UINT)(m_end - m_pc);
